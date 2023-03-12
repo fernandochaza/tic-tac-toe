@@ -1,19 +1,39 @@
 import tkinter as tk
+from tkinter import ttk
 import random
 
 
 # Declare/Initialize global variables needed
+player1 = "❌"
+player2 = "⭕️"
 
+board_buttons = [[0, 0, 0],
+                 [0, 0, 0],
+                 [0, 0, 0]]
+
+# Create a new style object to use ttk styling
+style = ttk.Style()
 
 
 # Define main function
 def main():
-    pass
+    
+    main_window = tk.Tk()
+    main_window.title("Tic Tac Toe")
+    main_window.geometry("700x700")
+    
+    
+    main_window.mainloop()
 
 
 # Define create_board function
-def create_board():
-    pass
+def create_dinamic_header(main_window):
+    header_label = tk.Label(
+        text = f"Player {player1} turn",
+        padding=8,
+        font=("Calibri", 30, "bold"), 
+        foreground="#0062B8")
+
 
 
 # Define restart_game function
