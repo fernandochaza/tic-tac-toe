@@ -34,9 +34,7 @@ def create_dynamic_header():
         font=("Calibri", 30, "bold"),
         foreground="#0062B8",
     )
-    header_label.pack(
-        pady=(10, 20), anchor="center"
-    )  # Set top/ bottom margins and center it
+    header_label.pack(pady=(10, 20), anchor="center")  # Set top/ bottom margins and center it
 
 
 def create_board():
@@ -54,9 +52,7 @@ def create_board():
                 height=2,
                 command=lambda row=row, column=column: add_mark(row, column),
             )
-            board_buttons[row][column].grid(
-                row=row, column=column
-            )  # Display each button in grid
+            board_buttons[row][column].grid(row=row, column=column)  # Display each button in the grid
 
 
 def add_mark(row, column):
@@ -71,9 +67,7 @@ def add_mark(row, column):
     """
     global actual_player  # Access the actual_player variable
 
-    player2 = (
-        players[1] if actual_player == players[0] else players[0]
-    )  # Get the other player's mark value
+    player2 = players[1] if actual_player == players[0] else players[0]  # Get the other player's mark value
 
     if board_buttons[row][column]["text"] == "" and check_win() is False:
         if actual_player == players[0]:  # Set mark color to players
@@ -97,30 +91,21 @@ def add_mark(row, column):
 
 
 def create_restart_game_button():
-    style = ttk.Style()
-    style.configure(
-        "restart_game_button.TButton",
-        font=("Calibri", 24, "bold"),
-        padding=5,
-        background="white",
-        foreground="#0062B8",
-        relief="raised",
-    )
-
     restart_button_frame = tk.Frame()
     restart_button_frame.pack(pady=50)
 
-    restart_game_button = ttk.Button(
+    restart_game_button = tk.Button(
         restart_button_frame,
-        style="restart_game_button.TButton",
         text="Restart Game",
+        font=("Calibri", 24, "bold"),
+        background="white",
+        foreground="#0062B8",
         command=restart_game,
     )
     restart_game_button.grid()
 
 
 def restart_game():
-    """_summary_"""
     global actual_player
     actual_player = random.choice(players)
     header_label.configure(text=f"Player {actual_player} turn")
@@ -130,12 +115,10 @@ def restart_game():
             board_buttons[row][column].configure(text="", background="white")
 
 
-# Define check_win function
 def check_win():
-    """ """
     for i in range(3):
         if (
-            board_buttons[i][0]["text"]
+            board_buttons[i][0]["text"]  # Check horizontal winning probabilities
             == board_buttons[i][1]["text"]
             == board_buttons[i][2]["text"]
             != ""
@@ -145,34 +128,19 @@ def check_win():
             board_buttons[i][2].configure(background="green")
             return True
 
-        elif (
-            board_buttons[0][i]["text"]
-            == board_buttons[1][i]["text"]
-            == board_buttons[2][i]["text"]
-            != ""
-        ):
+        elif board_buttons[0][i]["text"] == board_buttons[1][i]["text"] == board_buttons[2][i]["text"] != "":
             board_buttons[0][i].configure(background="green")
             board_buttons[1][i].configure(background="green")
             board_buttons[2][i].configure(background="green")
             return True
 
-        elif (
-            board_buttons[0][0]["text"]
-            == board_buttons[1][1]["text"]
-            == board_buttons[2][2]["text"]
-            != ""
-        ):
+        elif board_buttons[0][0]["text"] == board_buttons[1][1]["text"] == board_buttons[2][2]["text"] != "":
             board_buttons[0][0].configure(background="green")
             board_buttons[1][1].configure(background="green")
             board_buttons[2][2].configure(background="green")
             return True
 
-        elif (
-            board_buttons[0][2]["text"]
-            == board_buttons[1][1]["text"]
-            == board_buttons[2][0]["text"]
-            != ""
-        ):
+        elif board_buttons[0][2]["text"] == board_buttons[1][1]["text"] == board_buttons[2][0]["text"] != "":
             board_buttons[0][2].configure(background="green")
             board_buttons[1][1].configure(background="green")
             board_buttons[2][0].configure(background="green")
@@ -180,9 +148,7 @@ def check_win():
     return False
 
 
-# Define check_empty_spaces_in_board function
 def check_empty_spaces_in_board():
-    """ """
     spaces = 9
 
     for row in range(3):
