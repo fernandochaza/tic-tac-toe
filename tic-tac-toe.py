@@ -117,12 +117,8 @@ def restart_game():
 
 def check_win():
     for i in range(3):
-        if (
-            board_buttons[i][0]["text"]  # Check horizontal winning probabilities
-            == board_buttons[i][1]["text"]
-            == board_buttons[i][2]["text"]
-            != ""
-        ):
+        # Check horizontal winning probabilities
+        if board_buttons[i][0]["text"] == board_buttons[i][1]["text"] == board_buttons[i][2]["text"] != "":
             board_buttons[i][0].configure(background="green")
             board_buttons[i][1].configure(background="green")
             board_buttons[i][2].configure(background="green")
@@ -134,18 +130,23 @@ def check_win():
             board_buttons[2][i].configure(background="green")
             return True
 
-        elif board_buttons[0][0]["text"] == board_buttons[1][1]["text"] == board_buttons[2][2]["text"] != "":
-            board_buttons[0][0].configure(background="green")
-            board_buttons[1][1].configure(background="green")
-            board_buttons[2][2].configure(background="green")
-            return True
+    if board_buttons[0][0]["text"] == board_buttons[1][1]["text"] == board_buttons[2][2]["text"] != "":
+        board_buttons[0][0].configure(background="green")
+        board_buttons[1][1].configure(background="green")
+        board_buttons[2][2].configure(background="green")
+        return True
 
-        elif board_buttons[0][2]["text"] == board_buttons[1][1]["text"] == board_buttons[2][0]["text"] != "":
-            board_buttons[0][2].configure(background="green")
-            board_buttons[1][1].configure(background="green")
-            board_buttons[2][0].configure(background="green")
-            return True
+    elif board_buttons[0][2]["text"] == board_buttons[1][1]["text"] == board_buttons[2][0]["text"] != "":
+        board_buttons[0][2].configure(background="green")
+        board_buttons[1][1].configure(background="green")
+        board_buttons[2][0].configure(background="green")
+        return True
     return False
+
+
+def highlight_buttons(buttons):
+    for button in buttons:
+        button.configure(background="green")
 
 
 def check_empty_spaces_in_board():
