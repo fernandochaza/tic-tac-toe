@@ -119,6 +119,8 @@ def create_board():
                 board_frame,
                 padding=("10 35"),
                 text="",
+                # Each button calls a lambda function that 
+                # passes the row and column number as arguments
                 command=lambda row=row, column=column: add_mark(row, column),)
             # Display each button in the grid
             board_buttons[row][column].grid(row=row, column=column,)
@@ -189,10 +191,8 @@ def restart_game():
 
 def check_win():
     """
-    Check if a player won and color the
-    winning line accordingly.
-    If the game has finished, return True.
-    Otherwise, return False."""
+    Check if a player won and color the winning line accordingly.
+    If the game has finished, return True. Otherwise, return False."""
     for possibilities in winning_possibilities:
         button1, button2, button3 = possibilities
 
@@ -210,8 +210,7 @@ def check_win():
 def check_empty_spaces_in_board():
     """
     Check if there are empty spaces in the board.
-    If there are empty spaces, return True.
-    Otherwise, return False.
+    If there are empty spaces, return True. Otherwise, return False.
     """
     spaces = 9
 
