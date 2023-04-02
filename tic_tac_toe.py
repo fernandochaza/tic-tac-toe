@@ -11,17 +11,18 @@ board_buttons = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
 winning_possibilities = {
     # Horizontal
-    ((0,0),(0,1),(0,2)),
-    ((1,0),(1,1),(1,2)),
-    ((2,0),(2,1),(2,2)),
+    ((0, 0), (0, 1), (0, 2)),
+    ((1, 0), (1, 1), (1, 2)),
+    ((2, 0), (2, 1), (2, 2)),
     # Vertical
-    ((0,0),(1,0),(2,0)),
-    ((0,1),(1,1),(2,1)),
-    ((0,2),(1,2),(2,2)),
+    ((0, 0), (1, 0), (2, 0)),
+    ((0, 1), (1, 1), (2, 1)),
+    ((0, 2), (1, 2), (2, 2)),
     # Diagonal
-    ((0,0),(1,1),(2,2)),
-    ((0,2),(1,1),(2,0)),
+    ((0, 0), (1, 1), (2, 2)),
+    ((0, 2), (1, 1), (2, 0)),
     }
+
 
 def define_styles():
     styles = ttk.Style()
@@ -67,7 +68,7 @@ def create_main_window():
     # Set a window icon
     try:
         main_window.iconbitmap(icon_path)
-    except tk.TclError as incorrect_path:
+    except tk.TclError:
         print(f"Error: could not find icon file '{icon_path}'")
 
     # Get the screen size to center the window
@@ -83,7 +84,6 @@ def create_main_window():
     top = int(screen_height / 2 - window_height / 2)
 
     main_window.geometry(f"{window_width}x{window_height}+{left}+{top}")
-
     main_window.resizable(False, False)
 
 
@@ -109,19 +109,16 @@ def create_board():
     board_frame = ttk.Frame()
     board_frame.pack()
 
-    for row in range(3):  # Create the board buttons for each row and column
+    # Create a 3x3 grid with buttons
+    for row in range(3):
         for column in range(3):
             board_buttons[row][column] = ttk.Button(
                 board_frame,
                 padding=("10 35"),
                 text="",
-                command=lambda row=row, column=column: add_mark(row, column),
-            )
+                command=lambda row=row, column=column: add_mark(row, column),)
             # Display each button in the grid
-            board_buttons[row][column].grid(
-                row=row,
-                column=column,
-            )
+            board_buttons[row][column].grid(row=row, column=column,)
 
 
 def add_mark(row, column):
@@ -184,8 +181,10 @@ def check_win():
     for possibilities in winning_possibilities:
         button1, button2, button3 = possibilities
 
-        if (board_buttons[button1[0]][button1[1]]["text"] == board_buttons[button2[0]][button2[1]]["text"]
-            == board_buttons[button3[0]][button3[1]]["text"] != ""):
+        if (board_buttons[button1[0]][button1[1]]["text"] ==
+            board_buttons[button2[0]][button2[1]]["text"] ==
+            board_buttons[button3[0]][button3[1]]["text"] != ""):
+            # If true. Change background color of the winning line
             board_buttons[button1[0]][button1[1]].configure(style="win.TButton")
             board_buttons[button2[0]][button2[1]].configure(style="win.TButton")
             board_buttons[button3[0]][button3[1]].configure(style="win.TButton")
