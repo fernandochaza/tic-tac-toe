@@ -106,6 +106,9 @@ def create_dynamic_header():
 
 
 def create_board():
+    """Create a frame that will display 
+    a 3x3 buttons board
+    """
     board_frame = ttk.Frame()
     board_frame.pack()
 
@@ -140,19 +143,22 @@ def add_mark(row, column):
     if board_buttons[row][column]["text"] == "" and check_win() is False:
         board_buttons[row][column]["text"] = actual_player
 
-        if check_win() is True:
+        if check_win():
             header_label.configure(text=f"Player {actual_player} WINS!")
 
-        elif check_empty_spaces_in_board() is True:
+        elif check_empty_spaces_in_board():
             # Change turns
             actual_player = player2
             header_label.configure(text=f"Player {actual_player} turn")
 
-        elif check_win() is False and check_empty_spaces_in_board() is False:
+        elif not check_win() and not check_empty_spaces_in_board():
             header_label.configure(text="Is a TIE!")
 
 
 def create_restart_game_button():
+    """Create a button that will call a
+    function to clean the board to start a new game
+    """
     restart_button_frame = tk.Frame()
     restart_button_frame.pack(pady=50)
 
@@ -168,16 +174,25 @@ def create_restart_game_button():
 
 
 def restart_game():
-    global actual_player
-    actual_player = random.choice(players)
-    header_label.configure(text=f"Player {actual_player} turn")
-
+    """Clean the board, choose a random player
+    to start a new game and update the header"""
+    # Clean the board
     for row in range(3):
         for column in range(3):
             board_buttons[row][column].configure(text="", style="TButton")
 
+    # Select a random player and update the header
+    global actual_player
+    actual_player = random.choice(players)
+    header_label.configure(text=f"Player {actual_player} turn")
+
 
 def check_win():
+    """
+    Check if a player won and color the
+    winning line accordingly.
+    If the game has finished, return True.
+    Otherwise, return False."""
     for possibilities in winning_possibilities:
         button1, button2, button3 = possibilities
 
@@ -193,6 +208,11 @@ def check_win():
 
 
 def check_empty_spaces_in_board():
+    """
+    Check if there are empty spaces in the board.
+    If there are empty spaces, return True.
+    Otherwise, return False.
+    """
     spaces = 9
 
     for row in range(3):
